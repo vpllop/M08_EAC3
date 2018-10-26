@@ -1,16 +1,16 @@
 package cat.valen.m08_eac3;
 
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CapturaFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         // Replace the contents of the container with the new fragment
         //ft.replace(R.id.placeholder, new LlanternaFragment());
         ft.add(R.id.placeholder, new LlanternaFragment());
+        //ft.add(R.id.placeholder, new CapturaFragment());
         // Complete the changes added above
         ft.commit();
 
@@ -56,7 +57,23 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.action_captura) {
+            // Begin the transaction
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // Replace the contents of the container with the new fragment
+            //ft.replace(R.id.placeholder, new LlanternaFragment());
+            ft.replace(R.id.placeholder, new CapturaFragment());
+            // Complete the changes added above
+            ft.commit();
+
+            return true;
+        }
+
         return super.onOptionsItemSelected( item );
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

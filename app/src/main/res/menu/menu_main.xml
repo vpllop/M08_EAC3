@@ -9,5 +9,10 @@
         android:title="@string/icone_llanterna"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_captura"
+        android:icon="@drawable/baseline_linked_camera_black_24"
+        android:title="@string/icone_captura"
+        app:showAsAction="ifRoom" />
 
 </menu>

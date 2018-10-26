@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".LlanternaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+       <ImageView
+        android:id="@+id/imageLlanterna"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/descripcio_captura"
+        android:src="@android:drawable/btn_star_big_on" />
 
-</FrameLayout>
+   </FrameLayout>

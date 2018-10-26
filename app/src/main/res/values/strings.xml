@@ -6,4 +6,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="descripcio_captura">Captura Imatge</string>
+    <string name="icone_captura">Captura Imatge</string>
 </resources>

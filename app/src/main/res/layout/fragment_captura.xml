@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".CapturaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/imageFoto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/descripcio_captura"
+        android:src="@drawable/baseline_highlight_black_48" />
 
 </FrameLayout>

@@ -1,16 +1,13 @@
 package cat.valen.m08_eac3;
 
-import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements CapturaFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements CapturaFragment.O
         return super.onOptionsItemSelected( item );
     }
 
-    @Override
+    /*@Override
     public void onFragmentInteraction(Uri uri) {
 
-    }
+    }*/
 }

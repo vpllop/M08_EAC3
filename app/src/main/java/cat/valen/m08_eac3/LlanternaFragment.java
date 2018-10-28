@@ -1,10 +1,8 @@
 package cat.valen.m08_eac3;
 
-import android.content.Context;
-import android.content.Intent;
+
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -71,32 +69,30 @@ public class LlanternaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View myFragmentView = inflater.inflate(R.layout.fragment_llanterna, container, false);
+        super.onViewCreated(myFragmentView, savedInstanceState);
 
         final ImageView llanterna = (ImageView) myFragmentView.findViewById(R.id.imageLlanterna);
+
         llanterna.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+
                 llanterna.setImageResource( android.R.drawable.btn_star_big_off );
-                Camera cam = Camera.open();
-                Camera.Parameters p = cam.getParameters();
-                p.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH);
-                cam.setParameters(p);
-                cam.startPreview();
+                flashLightOn(v);
             }
         }) ;
 
-
-        return inflater.inflate( R.layout.fragment_llanterna, container, false );
+        return myFragmentView;
+        //return inflater.inflate( R.layout.fragment_llanterna, container, false );
     }
 
     public void flashLightOn(View view) {
 
         try {
-            if (getPackageManager().hasSystemFeature(
+            if (getActivity().getPackageManager().hasSystemFeature(
                     PackageManager.FEATURE_CAMERA_FLASH)) {
                 cam = Camera.open();
                 Camera.Parameters p = cam.getParameters();
@@ -106,14 +102,14 @@ public class LlanternaFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getBaseContext(), "Exception flashLightOn()",
+            Toast.makeText(getActivity().getBaseContext(), "Exception flashLightOn()",
                     Toast.LENGTH_SHORT).show();
         }
     }
 
     public void flashLightOff(View view) {
         try {
-            if (getPackageManager().hasSystemFeature(
+            if (getActivity().getPackageManager().hasSystemFeature(
                     PackageManager.FEATURE_CAMERA_FLASH)) {
                 cam.stopPreview();
                 cam.release();
@@ -121,7 +117,7 @@ public class LlanternaFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getBaseContext(), "Exception flashLightOff",
+            Toast.makeText(getActivity().getBaseContext(), "Exception flashLightOff",
                     Toast.LENGTH_SHORT).show();
         }
     }

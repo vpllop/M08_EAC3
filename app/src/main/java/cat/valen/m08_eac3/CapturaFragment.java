@@ -1,12 +1,21 @@
 package cat.valen.m08_eac3;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.File;
 
 
 /**
@@ -27,7 +36,15 @@ public class CapturaFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    //private OnFragmentInteractionListener mListener;
+
+    // Número que identifica l'activitat de l'aplicació de fotos
+    private static final int APP_CAMERA = 0;
+
+    // Identificador de la imatge que crearà l'aplicació de fotos
+    private Uri identificadorImatge;
+
+    View myFragmentView;
 
     public CapturaFragment() {
         // Required empty public constructor
@@ -64,10 +81,75 @@ public class CapturaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate( R.layout.fragment_captura, container, false );
+        myFragmentView = inflater.inflate(R.layout.fragment_captura, container, false);
+        super.onViewCreated(myFragmentView, savedInstanceState);
+
+        final ImageView fotoView = (ImageView) myFragmentView.findViewById(R.id.imageFoto);
+
+        fotoView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                fesFoto(v);
+
+            }
+        }) ;
+
+        return myFragmentView;
+        //return inflater.inflate( R.layout.fragment_captura, container, false );
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    public void fesFoto(View view) {
+    // Es crea l'intent per l'aplicació de fotos
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+    // Es crea un nou fitxer a l'emmagatzematge extern i se li passa a l'intent
+        File foto = new File(Environment.getExternalStorageDirectory(), "Foto.jpg");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(foto));
+    // Es desa l'identificador de la imatge per recuperar-la quan estigui feta
+        identificadorImatge = Uri.fromFile(foto);
+    // S'engega l'activitat
+        startActivityForResult(intent, APP_CAMERA);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Primer cridem al mètode d'Activity perquè faci la seva tasca
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case APP_CAMERA:
+                if (resultCode == Activity.RESULT_OK) {
+                    /* El ContentResolver dóna accés als continguts
+                      (la imatge emmagatzemada en aquest cas)*/
+                    ContentResolver contRes = getContentResolver();
+                    // Cal indicar que el contingut del fitxer ha canviat
+                    contRes.notifyChange(identificadorImatge, null);
+                    /* Accedeix a l'ImageView i hi carrega la foto que ha fet la
+                      càmera */
+                    ImageView imageView = (ImageView) myFragmentView.findViewById(R.id.imageFoto);
+                    Bitmap bitmap;
+                    /* Com que la càrrega de la imatge pot fallar, cal tractar
+                      les possibles excepcions*/
+                    try {
+
+                        bitmap = android.provider.MediaStore.Images.Media
+                                .getBitmap(contRes, identificadorImatge);
+
+                        /* Reduïm la imatge per no tenir problemes de visualització.
+                          Calculem l'alçada per mantenir la proporció amb una amplada de 1080 píxels*/
+                        int alt = (int) (bitmap.getHeight() * 1080 / bitmap.getWidth());
+                        Bitmap reduit = Bitmap.createScaledBitmap(bitmap, 1080, alt, true);
+
+                        imageView.setImageBitmap(reduit);
+
+                    } catch (Exception e) {
+                        Toast.makeText(this, "No es pot carregar la imatge" + identificadorImatge.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        }
+    }
+
+    /*// TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction( uri );
@@ -91,7 +173,7 @@ public class CapturaFragment extends Fragment {
         mListener = null;
     }
 
-    /**
+    *//**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -100,9 +182,9 @@ public class CapturaFragment extends Fragment {
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
-     */
+     *//*
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
+    }*/
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EAC3_1819S1</string>
+    <string name="app_name"></string>
     <string name="action_settings">Settings</string>
     <string name="icone_llanterna">llanterna</string>
     <string name="descripcio_llanterna">flash</string>
@@ -8,4 +8,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="descripcio_captura">Captura Imatge</string>
     <string name="icone_captura">Captura Imatge</string>
+    <string name="descripcio_animacio">Animacio</string>
+    <string name="descripcio_fotograma">fotograma</string>
 </resources>

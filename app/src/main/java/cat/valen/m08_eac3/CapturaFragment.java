@@ -121,7 +121,7 @@ public class CapturaFragment extends Fragment {
                 if (resultCode == Activity.RESULT_OK) {
                     /* El ContentResolver dóna accés als continguts
                       (la imatge emmagatzemada en aquest cas)*/
-                    ContentResolver contRes = getContentResolver();
+                    ContentResolver contRes = getActivity().getContentResolver();
                     // Cal indicar que el contingut del fitxer ha canviat
                     contRes.notifyChange(identificadorImatge, null);
                     /* Accedeix a l'ImageView i hi carrega la foto que ha fet la
@@ -143,7 +143,7 @@ public class CapturaFragment extends Fragment {
                         imageView.setImageBitmap(reduit);
 
                     } catch (Exception e) {
-                        Toast.makeText(this, "No es pot carregar la imatge" + identificadorImatge.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText( getContext(), "No es pot carregar la imatge" + identificadorImatge.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
         }

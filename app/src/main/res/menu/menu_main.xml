@@ -7,12 +7,38 @@
         android:id="@+id/action_llanterna"
         android:icon="@drawable/baseline_highlight_black_24"
         android:title="@string/icone_llanterna"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_captura"
         android:icon="@drawable/baseline_linked_camera_black_24"
         android:title="@string/icone_captura"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_fotograma"
+        android:icon="@drawable/twotone_accessibility_black_24"
+        android:title="Fotogramas"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_animacio"
+        android:icon="@drawable/twotone_android_black_24"
+        android:title="Animacio"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_musica"
+        android:icon="@drawable/baseline_library_music_black_24"
+        android:title="musica"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_video"
+        android:icon="@drawable/baseline_theaters_black_24"
+        android:title="video"
+        app:showAsAction="always" />
+
+
 
 </menu>

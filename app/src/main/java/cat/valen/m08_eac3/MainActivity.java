@@ -66,6 +66,41 @@ public class MainActivity extends AppCompatActivity  {
             return true;
         }
 
+        if (id == R.id.action_fotograma) {
+            // Begin the transaction
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // Replace the contents of the container with the new fragment
+            //ft.replace(R.id.placeholder, new LlanternaFragment());
+            ft.replace(R.id.placeholder, new FotogramaFragment());
+            // Complete the changes added above
+            ft.commit();
+
+            return true;
+        }
+        if (id == R.id.action_animacio) {
+            // Begin the transaction
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // Replace the contents of the container with the new fragment
+            //ft.replace(R.id.placeholder, new LlanternaFragment());
+            ft.replace(R.id.placeholder, new AnimacioFragment());
+            // Complete the changes added above
+            ft.commit();
+
+            return true;
+        }
+
+        if (id == R.id.action_musica) {
+            // Begin the transaction
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // Replace the contents of the container with the new fragment
+            //ft.replace(R.id.placeholder, new LlanternaFragment());
+            ft.replace(R.id.placeholder, new MusicaFragment());
+            // Complete the changes added above
+            ft.commit();
+
+            return true;
+        }
+
         return super.onOptionsItemSelected( item );
     }
 

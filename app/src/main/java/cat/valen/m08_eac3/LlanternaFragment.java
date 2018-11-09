@@ -13,12 +13,8 @@ import android.widget.Toast;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * //{@link LlanternaFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LlanternaFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @class on es gestiona l'encesa del flash de la camara
+ * Es detecta primer si disposa de la funcio si no es genera una Excepció
  */
 public class LlanternaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -30,8 +26,9 @@ public class LlanternaFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    ImageView visorImatge;
     public static Camera cam = null;// has to be static, otherwise onDestroy() destroys it
+    ImageView llanterna;
+    boolean activat = false;
 
     public LlanternaFragment() {
         // Required empty public constructor
@@ -72,16 +69,22 @@ public class LlanternaFragment extends Fragment {
         View myFragmentView = inflater.inflate(R.layout.fragment_llanterna, container, false);
         super.onViewCreated(myFragmentView, savedInstanceState);
 
-        final ImageView llanterna = (ImageView) myFragmentView.findViewById(R.id.imageLlanterna);
-
+        llanterna = (ImageView) myFragmentView.findViewById(R.id.imageLlanterna);
+        /**
+         * Gestió de l'ences i apagada del flash fent click al imageView
+         * */
         llanterna.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                llanterna.setImageResource( android.R.drawable.btn_star_big_off );
-                flashLightOn(v);
+                if (activat){
+                    flashLightOff(v);
+                } else {
+                    flashLightOn(v);
+                }
+
             }
         }) ;
 
@@ -99,12 +102,16 @@ public class LlanternaFragment extends Fragment {
                 p.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH);
                 cam.setParameters(p);
                 cam.startPreview();
+                llanterna.setImageResource( android.R.drawable.btn_star_big_off );
+                Toast.makeText(getActivity().getBaseContext(), "Flaix ences",
+                        Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getActivity().getBaseContext(), "Exception flashLightOn()",
+            Toast.makeText(getActivity().getBaseContext(), "Aquest dispositiu no disposa de Llanterna",
                     Toast.LENGTH_SHORT).show();
         }
+        activat = true;
     }
 
     public void flashLightOff(View view) {
@@ -114,12 +121,16 @@ public class LlanternaFragment extends Fragment {
                 cam.stopPreview();
                 cam.release();
                 cam = null;
+                llanterna.setImageResource( android.R.drawable.btn_star_big_on );
+                Toast.makeText(getActivity().getBaseContext(), "Flaix Apagat",
+                        Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getActivity().getBaseContext(), "Exception flashLightOff",
+            Toast.makeText(getActivity().getBaseContext(), "Aquest dispositiu no disposa de Llanterna",
                     Toast.LENGTH_SHORT).show();
         }
+        activat = false;
     }
 
 }

@@ -7,6 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * @class MainAcitvy on s'inicalitza el primer fragment Llanterna
+ * Es gestionen totes les crides als botons de la barra de menus
+ */
 public class MainActivity extends AppCompatActivity  {
 
     @Override
@@ -46,7 +50,6 @@ public class MainActivity extends AppCompatActivity  {
             // Begin the transaction
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             // Replace the contents of the container with the new fragment
-            //ft.replace(R.id.placeholder, new LlanternaFragment());
             ft.replace(R.id.placeholder, new LlanternaFragment());
             // Complete the changes added above
             ft.commit();
@@ -101,6 +104,28 @@ public class MainActivity extends AppCompatActivity  {
             return true;
         }
 
+        if (id == R.id.action_video) {
+            // Begin the transaction
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // Replace the contents of the container with the new fragment
+            //ft.replace(R.id.placeholder, new LlanternaFragment());
+            ft.replace(R.id.placeholder, new VideoFragment());
+            // Complete the changes added above
+            ft.commit();
+
+            return true;
+        }
+        if (id == R.id.action_gps) {
+            // Begin the transaction
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // Replace the contents of the container with the new fragment
+            //ft.replace(R.id.placeholder, new MapsActivity());
+            ft.replace(R.id.placeholder, new gpsFragment());
+            // Complete the changes added above
+            ft.commit();
+
+            return true;
+        }
         return super.onOptionsItemSelected( item );
     }
 

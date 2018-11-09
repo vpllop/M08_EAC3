@@ -10,4 +10,5 @@
     <string name="icone_captura">Captura Imatge</string>
     <string name="descripcio_animacio">Animacio</string>
     <string name="descripcio_fotograma">fotograma</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

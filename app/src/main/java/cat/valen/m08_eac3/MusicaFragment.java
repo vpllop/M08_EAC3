@@ -1,24 +1,18 @@
 package cat.valen.m08_eac3;
 
-import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
+
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MusicaFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MusicaFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @class per reproduir musica d'un fitxer mp3 fent servir la classe @Link android.media.MediaPlayer
  */
 public class MusicaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -30,7 +24,7 @@ public class MusicaFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private View myFragmentView;
-
+    private boolean activat = false;
     //private OnFragmentInteractionListener mListener;
 
     public MusicaFragment() {
@@ -68,18 +62,30 @@ public class MusicaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        myFragmentView = inflater.inflate(R.layout.fragment_fotograma, container, false);
+        myFragmentView = inflater.inflate(R.layout.fragment_musica, container, false);
         super.onViewCreated(myFragmentView, savedInstanceState);
 
-        final ImageView animacioView = (ImageView) myFragmentView.findViewById(R.id.imageFotograma);
+        final ImageView musicaView = (ImageView) myFragmentView.findViewById(R.id.imagePlay);
 
-        animacioView.setOnClickListener(new View.OnClickListener() {
+        musicaView.setOnClickListener(new View.OnClickListener() {
+            MediaPlayer so = MediaPlayer.create(getContext(), R.raw.enjoy);
 
             @Override
             public void onClick(View v) {
-                MediaPlayer so = MediaPlayer.create(getContext(), R.raw.enjoy);
-                so.start();
-
+                 if (activat){
+                     so.pause();
+                     activat = false;
+                     musicaView.setImageResource(android.R.drawable.ic_media_play);
+                     Toast.makeText(getActivity().getBaseContext(), "En pausa",
+                             Toast.LENGTH_SHORT).show();
+                 } // Activem la repoduccio de so
+                 else{
+                     so.start();
+                     activat = true;
+                     musicaView.setImageResource(android.R.drawable.ic_media_pause);
+                     Toast.makeText(getActivity().getBaseContext(), "Reproduint",
+                             Toast.LENGTH_SHORT).show();
+                 }
             }
         }) ;
 
@@ -88,42 +94,5 @@ public class MusicaFragment extends Fragment {
         //return inflater.inflate( R.layout.fragment_musica, container, false );
     }
 
-   /* // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction( uri );
-        }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach( context );
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException( context.toString()
-                    + " must implement OnFragmentInteractionListener" );
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    *//**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     *//*
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 }

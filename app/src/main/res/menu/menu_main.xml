@@ -39,6 +39,12 @@
         android:title="video"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_gps"
+        android:icon="@drawable/baseline_room_black_24"
+        android:title="gps"
+        app:showAsAction="always" />
+
 
 
 </menu>

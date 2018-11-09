@@ -19,12 +19,8 @@ import java.io.File;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CapturaFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CapturaFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @class gestiona mitjançant un intent l'acces a la camara i fa una foto que es guarda
+ * a la memoria externa del dispositiu
  */
 public class CapturaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +41,8 @@ public class CapturaFragment extends Fragment {
     private Uri identificadorImatge;
 
     View myFragmentView;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
 
     public CapturaFragment() {
         // Required empty public constructor
@@ -110,6 +108,12 @@ public class CapturaFragment extends Fragment {
         identificadorImatge = Uri.fromFile(foto);
     // S'engega l'activitat
         startActivityForResult(intent, APP_CAMERA);
+
+       /* Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }*/
+
     }
 
     @Override
